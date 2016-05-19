@@ -1,0 +1,29 @@
+.rowContent{
+	width:80%
+}
+
+#topPanel{
+	position: absolute; 
+	top:100px;
+}
+
+#mainContent{
+	position: absolute; 
+	top:150px;
+	width:80%;
+}
+
+#sidebar{
+	overflow-y:scroll;
+	height:600px;
+}
+
+#mapContainer{
+	height:600px;
+}
+
+#choiceForm{
+	position: absolute; 
+	top:150px;
+}
+
