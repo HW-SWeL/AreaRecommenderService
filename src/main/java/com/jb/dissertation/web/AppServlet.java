@@ -3,7 +3,7 @@ package com.jb.dissertation.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omg.CORBA.portable.InputStream;
+//import org.omg.CORBA.portable.InputStream;
+
 
 import com.google.maps.model.LatLng;
 import com.jb.dissertation.controllers.Controller;
@@ -28,6 +29,7 @@ import com.jb.dissertation.utils.JsonUtils;
  */
 @WebServlet("/AppServlet")
 public class AppServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 	
 	Controller controller;
@@ -38,7 +40,7 @@ public class AppServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public AppServlet() throws Exception {
-        super();        
+    	super();        
     }
 
 	/**
@@ -82,8 +84,8 @@ public class AppServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 	
@@ -99,10 +101,12 @@ public class AppServlet extends HttpServlet {
 					
 					String name = request.getParameter("name");
 					if(name!=null){
+						System.out.println("Request parameter: " + param + " location name: " + name);
 						loc = controller.getLocation(name);
 					}
 					else{
 						String latLng = request.getParameter("latlng");
+						System.out.println("Request parameter: " + param + " latlng: " + latLng);
 						if(latLng!=null){
 							String[] latLngSplit = latLng.split(",");
 							loc = controller.getLocation(new LatLng(Double.parseDouble(latLngSplit[0]), Double.parseDouble(latLngSplit[1])));
@@ -116,6 +120,7 @@ public class AppServlet extends HttpServlet {
 				//request=recommend
 				else if(param.equals("recommend")){
 					String prefJson = request.getParameter("preferences");
+					System.out.println("Request parameter: " + param + " preferences: " + prefJson);
 					List<Preference> preferences = null;
 					
 					try {
@@ -141,10 +146,12 @@ public class AppServlet extends HttpServlet {
 				}
 				//request=locationsSimple
 				else if(param.equals("locationsSimple")){
+					System.out.println("Request parameter: " + param);
 					out.write(JsonUtils.locationsToJsonSimple(controller.getLocations()).toJSONString());
 				}
 				//request=locations
 				else if(param.equals("locations")){
+					System.out.println("Request parameter: " + param);
 					out.write(JsonUtils.locationsToJson(controller.getLocations()).toJSONString());
 				}
 			}
